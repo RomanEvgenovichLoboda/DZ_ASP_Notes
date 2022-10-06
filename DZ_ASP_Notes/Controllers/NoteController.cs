@@ -32,6 +32,14 @@ namespace DZ_ASP_Notes.Controllers
             return notRep.PutOneNote(note,token);
 
         }
+        [HttpPut("PutToArhiv")]
+        public string PutToArhiv(int id, string name, string token)
+        {
+            ArhivRepository arRep = new ArhivRepository();
+
+            return arRep.Add(id,name, token);
+
+        }
         [HttpDelete("DeleteNoteById")]
         public string DeleteNoteById(int id, string token)
         {
