@@ -12,10 +12,11 @@ namespace LibraryForNotes.Models.Reposetories
     public class ArhivRepository
     {
         string connectionString = @"Data Source=DESKTOP-54SAU6R\SQLEXPRESS;Initial Catalog=Others;Integrated Security=True;Connect Timeout=30;Encrypt=False;TrustServerCertificate=False;ApplicationIntent=ReadWrite;MultiSubnetFailover=False";
-        public string Add(int id, string name, string token)
+        public IEnumerable<Arhiv> Add(int id, string name, string token)
         {
             UserRepos usRep = new UserRepos();
             IEnumerable<User> users = usRep.GetAllUsers();
+            IEnumerable<Arhiv> arhivs = null;
             Note? serchNote = null;
             using (IDbConnection db = new SqlConnection(connectionString))
             {
@@ -33,18 +34,19 @@ namespace LibraryForNotes.Models.Reposetories
                             arhiv.Date = serchNote.Date;
                             db.Insert(arhiv);
                             db.Delete<Note>(serchNote);
-                            return "Added!)";
+                            arhivs = db.GetAll<Arhiv>();
+                            return arhivs;
                         }
                         catch (Exception ex)
                         {
                             Console.WriteLine(ex.Message);
-                            return "Error!(";
+                            return null;
                         }
-                        
+
                     }
                 }
             }
-            return "Error!(";
+            return null;
         }
     }
 }

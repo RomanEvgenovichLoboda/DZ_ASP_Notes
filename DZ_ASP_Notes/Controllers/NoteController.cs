@@ -33,7 +33,7 @@ namespace DZ_ASP_Notes.Controllers
 
         }
         [HttpPut("PutToArhiv")]
-        public string PutToArhiv(int id, string name, string token)
+        public IEnumerable<Arhiv> PutToArhiv(int id, string name, string token)
         {
             ArhivRepository arRep = new ArhivRepository();
 
