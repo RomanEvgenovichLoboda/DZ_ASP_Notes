@@ -11,16 +11,20 @@ namespace DZ_ASP_Notes.Controllers
     {
         NoteReposiory notRep = new NoteReposiory();
         [HttpGet("GetAllNotes")]
-        public IEnumerable<Note> GetUsers()
+        public IEnumerable<Note> GetUsers(string name, string token)
         {
-            return notRep.GetAllNotes();
+            return notRep.GetAllNotes(name,token);
 
         }
-        [HttpGet("GetNoteById")]
-        public Note? GetNoteById(int id)
+        [HttpGet("GetNotesByDate")]
+        public IEnumerable<Note> GetNotesByDate(DateTime strt, DateTime end, string name, string token)
         {
-            return notRep.GetNoteById(id);
-            ;
+            return notRep.GetNotesByDate(strt,end,name,token);
+        }
+        [HttpGet("GetNoteById")]
+        public Note? GetNoteById(int id,string name, string token)
+        {
+            return notRep.GetNoteById(id, name, token);
         }
         [HttpPut("PutOneNote")]
         public string PutOneNote(Note note, string token)
